@@ -1,0 +1,15 @@
+body{
+  background-color: #e7f5ff;
+}
+.navbar{
+  display: flex;
+  justify-content: space-between;
+}
+.links{
+  display: flex;
+  justify-content: space-between;
+}
+.main{
+  display: flex;
+  justify-content: space-around;
+}
