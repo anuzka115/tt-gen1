@@ -6,7 +6,7 @@ const Edit = () => {
   const [name, setName] = useState("");
   const [courses, setCourses] = useState([""]);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     fetch("http://localhost:5000/api/instructors")
       .then((res) => res.json())
@@ -44,7 +44,7 @@ const Edit = () => {
         .then((res) => res.json())
         .then(() => {
           alert("Timetable and instructors list have been reset.");
-          setInstructors([]); // Clears instructors from the UI
+          setInstructors([]); 
         })
         .catch((err) => console.error("Error resetting timetable:", err));
     }

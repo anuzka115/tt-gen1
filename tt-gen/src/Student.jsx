@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ✅ Ensure autoTable is imported correctly
+import autoTable from "jspdf-autotable";
 
 const Student = () => {
   const [courses, setCourses] = useState([]);
@@ -9,7 +9,14 @@ const Student = () => {
   const [slotMapping, setSlotMapping] = useState({});
   const [studentTimetable, setStudentTimetable] = useState({});
   const [conflicts, setConflicts] = useState([]);
-
+  
+  const classroomMap = [
+    "LHC-L1", "LHC-L3", "LHC-L4", "LHC-L5", "LHC-L6", "LHC-L7", "LHC-L8", "LHC-L9", "LHC-L10", "LHC-L11",
+    "AB1-A1", "AB1-A2", "AB1-108", "AB1-308",
+    "AB2-401", "AB2-402", "AB2-403", "AB2-404",
+    "AB3-401", "AB3-402", "AB3-403"
+  ];
+  
   useEffect(() => {
     fetch("http://localhost:5000/api/courses")
       .then((res) => res.json())
@@ -49,7 +56,7 @@ const Student = () => {
       row.forEach((entry, classroomIndex) => {
         if (entry.includes(course)) {
           const slotName = String.fromCharCode(65 + slotIndex);
-          const classroomNumber = classroomIndex + 1;
+          const classroomNumber = classroomMap[classroomIndex];
 
           if (slotMapping[slotName]) {
             slotMapping[slotName].schedule.forEach(({ day, time }) => {
@@ -60,7 +67,7 @@ const Student = () => {
               if (newStudentTimetable[day][time]) {
                 newConflicts.push({ day, time, course });
               } else {
-                newStudentTimetable[day][time] = `${course} (Classroom ${classroomNumber})`;
+                newStudentTimetable[day][time] = `${course} ${classroomNumber}`;
               }
             });
           }

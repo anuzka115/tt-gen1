@@ -2,11 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const navigate = useNavigate();
-  const isAdmin = localStorage.getItem("isAdmin") === "true"; // Check if the user is admin
+  const isAdmin = localStorage.getItem("isAdmin") === "true"; 
 
   const handleEditClick = () => {
     if (isAdmin) {
-      navigate("edit"); // Navigate to Edit TT if admin
+      navigate("edit"); 
     } else {
       alert("Sorry, you don't have permission.");
     }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ✅ Ensure autoTable is imported correctly
+import autoTable from "jspdf-autotable"; 
 
 const Faculty = () => {
   const [facultyName, setFacultyName] = useState("");
@@ -10,13 +10,11 @@ const Faculty = () => {
   const [facultyTimetable, setFacultyTimetable] = useState({});
 
   useEffect(() => {
-    // Fetch slot-to-time mapping
     fetch("http://localhost:5000/api/slots")
       .then((res) => res.json())
       .then((data) => setSlotMapping(data))
       .catch((err) => console.error("Error fetching slot mapping:", err));
-
-    // Fetch the full timetable
+      
     fetch("http://localhost:5000/api/timetable")
       .then((res) => res.json())
       .then((data) => setTimetable(data.slots || []))
@@ -36,6 +34,12 @@ const Faculty = () => {
       })
       .catch((err) => console.error("Error fetching faculty courses:", err));
   };
+  const classroomMap = [
+    "LHC-L1", "LHC-L3", "LHC-L4", "LHC-L5", "LHC-L6", "LHC-L7", "LHC-L8", "LHC-L9", "LHC-L10", "LHC-L11",
+    "AB1-A1", "AB1-A2", "AB1-108", "AB1-308",
+    "AB2-401", "AB2-402", "AB2-403", "AB2-404",
+    "AB3-401", "AB3-402", "AB3-403"
+  ];
 
   const generateFacultyTimetable = (facultyCourses) => {
     let newFacultyTimetable = {};
@@ -44,15 +48,16 @@ const Faculty = () => {
       timetable.forEach((row, slotIndex) => {
         row.forEach((entry, classroomIndex) => {
           if (entry.includes(course)) {
-            const slotName = String.fromCharCode(65 + slotIndex); // Convert 0 → 'A', 1 → 'B', etc.
-            const classroomNumber = classroomIndex + 1;
+            const slotName = String.fromCharCode(65 + slotIndex); 
+            const classroomNumber = classroomMap[classroomIndex];
 
             if (slotMapping[slotName]) {
               slotMapping[slotName].schedule.forEach(({ day, time }) => {
                 if (!newFacultyTimetable[day]) {
                   newFacultyTimetable[day] = {};
                 }
-                newFacultyTimetable[day][time] = `${course} (Classroom ${classroomNumber})`;
+                newFacultyTimetable[day][time] = `${course}
+                 ${classroomNumber}`;
               });
             }
           }
@@ -82,6 +87,7 @@ const Faculty = () => {
     doc.save("Faculty_timetable.pdf");
       };
 
+      
   return (
     <div>
       <h2>Faculty Timetable</h2>
