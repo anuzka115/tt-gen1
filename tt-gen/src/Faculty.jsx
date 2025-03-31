@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable"; 
+import "./Faculty.css"
 
 const Faculty = () => {
   const [facultyName, setFacultyName] = useState("");
@@ -10,11 +11,13 @@ const Faculty = () => {
   const [facultyTimetable, setFacultyTimetable] = useState({});
 
   useEffect(() => {
+
     fetch("http://localhost:5000/api/slots")
       .then((res) => res.json())
       .then((data) => setSlotMapping(data))
       .catch((err) => console.error("Error fetching slot mapping:", err));
-      
+
+    // Fetch the full timetable
     fetch("http://localhost:5000/api/timetable")
       .then((res) => res.json())
       .then((data) => setTimetable(data.slots || []))
@@ -72,44 +75,55 @@ const Faculty = () => {
   const exportToPDF = () => {
     const doc = new jsPDF({
         orientation: "landscape",
-        unit: "mm",
-        format: [400, 100],
-        styles:{
-            cellPadding: 10,
-        }
+        unit: "pt",
       });
-      
-    doc.text("Faculty Timetable", 10, 10);
+      let centerX = doc.internal.pageSize.getWidth() / 2;
+      doc.text('Faculty Timetable', centerX, 25, { align: 'center' });
     autoTable(doc,{
-        html: 'table',
-        theme: 'plain',
-        });
-    doc.save("Faculty_timetable.pdf");
-      };
+      html: 'table',
+      theme: 'plain',
+      styles: {
+          cellPadding: 10,
+          fontSize: 12,
+          lineColor: 10,
+          lineWidth: .5,
+          overflow: 'linebreak',
+          halign: 'center',
+          valign: 'middle'
+      }});
+    doc.save("faculty_timetable.pdf");
+
+  };
 
       
   return (
     <div>
-      <h2>Faculty Timetable</h2>
+      <div className="heading">
+      <h2>Faculty, enter your ID</h2>
+      </div>
 
-      <div>
+      <div className="main-section">
         <input
           type="text"
           value={facultyName}
           onChange={(e) => setFacultyName(e.target.value)}
           placeholder="Enter Faculty Name"
+          className="input-field"
         />
-        <button onClick={fetchFacultyCourses}>Get Courses</button>
+        <button onClick={fetchFacultyCourses} className="get-courses">Get Courses</button>
       </div>
 
       {courses.length > 0 && (
         <>
-          <h3>Courses Taught:</h3>
+        <div className="course">
+        <h3>Courses Taught:</h3>
           <ul>
             {courses.map((course) => (
               <li key={course}>{course}</li>
             ))}
           </ul>
+        </div>
+          
 
           <h3>Timetable</h3>
           <table border="1" cellPadding="5">
@@ -146,7 +160,7 @@ const Faculty = () => {
                     "4:00 PM - 4:55 PM",
                     "5:00 PM - 5:55 PM",
                   ].map((time) => (
-                    <td key={time} style={{ backgroundColor: facultyTimetable[day]?.[time] ? "#f0f8ff" : "white" }}>
+                    <td key={time}>
                       {facultyTimetable[day]?.[time] || ""}
                     </td>
                   ))}
@@ -154,9 +168,11 @@ const Faculty = () => {
               ))}
             </tbody>
           </table>
-          <button onClick={exportToPDF} style={{ marginTop: "20px", padding: "10px", backgroundColor: "blue", color: "white" }}>
+          <div className="button">
+          <button onClick={exportToPDF} className="button-pdf">
         Download as PDF
       </button>
+          </div>
         </>
       )}
     </div>

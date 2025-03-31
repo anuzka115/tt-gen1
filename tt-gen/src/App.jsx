@@ -29,35 +29,29 @@ function App() {
         <Link to="Admin">Admin</Link>
       </div>
         <div>
-          <img src={logo} alt="logo" height="80" width="80"/>
+          <img src={logo} alt="logo" height="100" width="100" className='logoimg'/>
         </div>
          {isAdmin ? (
-          <button onClick={handleLogout}>
+          <button onClick={handleLogout} className='login-btn'>
             Logout
           </button>
         ) : (
-          <Link to="login/signup">Admin Login</Link>
+          <Link to="login/signup" className='login-btn'>Admin Login</Link>
         )}
      </div>
      <div className='main'>
-      <div>
-        <h1>ScheduleEase</h1>
-        <h4>Make TT generation eaiser</h4>
-        <ul>
-          <li>
-            gen conflict free tt
-          </li>
-          <li>
-            get a copy of personalised tt
-          </li>
-          <li>
-            export to pdf
-          </li>
-          <li>
-            ease the process!!!
-          </li>
-        </ul>
-        <button>Start</button>
+      <div className='text'>
+      <h1>ScheduleEase</h1>
+<h4>Effortless Timetable Generation</h4>
+
+<ul>
+  <li>Automatically generate a conflict-free timetable</li>
+  <li>Ensure no instructor or student has overlapping classes</li>
+  <li>Get a personalized timetable tailored to your selections</li>
+  <li>Seamlessly export your timetable to PDF</li>
+  <li>Streamline the scheduling process with ease</li>
+</ul>
+
       </div>
       <div>
         <img src={ttLogo} alt="tt" height="400" width="400"/>

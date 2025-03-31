@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import "./Student.css"
 
 const Student = () => {
   const [courses, setCourses] = useState([]);
@@ -89,35 +90,39 @@ const Student = () => {
   const exportToPDF = () => {
     const doc = new jsPDF({
         orientation: "landscape",
-        unit: "mm",
-        format: [400, 100],
-        styles:{
-            cellPadding: 10,
-        }
+        unit: "pt",
       });
-      
-    doc.text("Student Timetable", 10, 10);
+      let centerX = doc.internal.pageSize.getWidth() / 2;
+      doc.text('Student Timetable', centerX, 25, { align: 'center' });
     autoTable(doc,{
-        html: 'table',
-        theme: 'plain',
-        });
+      html: 'table',
+      theme: 'plain',
+      styles: {
+          cellPadding: 10,
+          fontSize: 12,
+          lineColor: 10,
+          lineWidth: .5,
+          overflow: 'linebreak',
+          halign: 'center',
+          valign: 'middle'
+      }});
     doc.save("student_timetable.pdf");
 
   };
 
   return (
     <div>
-      <h2>Select Courses</h2>
+      <h2>Student, select the courses you are taking this semester!</h2>
       <div>
         {courses.map((course) => (
           <button
             key={course}
             onClick={() => handleCourseSelection(course)}
             style={{
-              margin: "5px",
-              padding: "10px",
-              backgroundColor: selectedCourses.includes(course) ? "lightgreen" : "lightgray",
+              backgroundColor: selectedCourses.includes(course) ? "black" : "white",
+              color:selectedCourses.includes(course) ? "white" : "black",
             }}
+            className="button-course"
           >
             {course}
           </button>
@@ -125,10 +130,10 @@ const Student = () => {
       </div>
 
       <h2>Personalized Timetable</h2>
-      <table border="1" cellPadding="5">
-        <thead>
+      <table>
+        <thead backgroundColor="whitesmoke"> 
           <tr>
-            <th>Day / Time</th>
+            <th ackgroundColor="whitesmoke">Day / Time</th>
             {[
               "9:00 - 9:55 AM",
               "10:00 - 10:55 AM",
@@ -140,7 +145,7 @@ const Student = () => {
               "4:00 - 4:55 PM",
               "5:00 - 5:55 PM",
             ].map((time) => (
-              <th key={time}>{time}</th>
+              <th key={time} backgroundColor="whitesmoke">{time}</th>
             ))}
           </tr>
         </thead>
@@ -163,13 +168,6 @@ const Student = () => {
                 return (
                   <td
                     key={time}
-                    style={{
-                      backgroundColor: isConflict
-                        ? "#ffcccc"
-                        : studentTimetable[day]?.[time]
-                        ? "#f0f8ff"
-                        : "white",
-                    }}
                   >
                     {studentTimetable[day]?.[time] || ""}
                   </td>
@@ -179,10 +177,11 @@ const Student = () => {
           ))}
         </tbody>
       </table>
-
-      <button onClick={exportToPDF} style={{ marginTop: "20px", padding: "10px", backgroundColor: "blue", color: "white" }}>
+          <div className="button">
+          <button onClick={exportToPDF} className="button-pdf">
         Download as PDF
       </button>
+          </div>
     </div>
   );
 };

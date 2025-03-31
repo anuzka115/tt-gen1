@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Edit.css"
 
 const Edit = () => {
   const [instructors, setInstructors] = useState([]);
@@ -52,13 +53,16 @@ const Edit = () => {
 
   return (
     <div>
-      <h2>Edit Timetable</h2>
+      <h2 className="heading">Edit Timetable</h2>
+      <div className="inst">
       <input
         type="text"
         placeholder="Instructor Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        className="input-field"
       />
+      <div className="courses-inst">
       {courses.map((course, index) => (
         <input
           key={index}
@@ -66,22 +70,32 @@ const Edit = () => {
           placeholder="Course Name"
           value={course}
           onChange={(e) => updateCourse(index, e.target.value)}
+           className="input-field"
         />
       ))}
-      <button onClick={addCourseField}>+ Add Course</button>
-      <button onClick={addInstructor}>Add Instructor</button>
+      <button onClick={addCourseField} className="button-pdf">+ Add Course</button>
+      </div>
+      <button onClick={addInstructor} className="button-pdf">Add Instructor</button>
 
+      </div>
+      <div className="id3">
+      <div className="text-sec">
       <h3>Instructors List</h3>
       <ul>
         {instructors.map((inst, index) => (
           <li key={index}>{inst.name} - {inst.courses.join(", ")}</li>
         ))}
       </ul>
-
-      <button onClick={generateTimetable}>Generate Timetable</button>
-      <button onClick={resetTimetable} style={{ backgroundColor: "red", color: "white" }}>
+      </div>
+        <div className="button3">
+        <button onClick={generateTimetable} className="button-pdf">Generate Timetable</button>
+      <button onClick={resetTimetable} className="button-reset">
         Reset Timetable
       </button>
+        </div>
+
+      </div>
+     
     </div>
   );
 };

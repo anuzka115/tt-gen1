@@ -1,0 +1,42 @@
+.inst{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+}
+.courses-inst{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+.text-sec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.id3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:50px;
+    margin-top: 30px;;
+}
+.button-reset{
+    background-color: black;
+    color: white;
+    padding: 10px 22px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.button-reset:hover{
+    background-color: red;
+}
+.button3{
+    display: flex;
+    flex-direction: column;
+}

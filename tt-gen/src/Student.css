@@ -1,0 +1,41 @@
+body{
+    background-color: whitesmoke;
+    margin:50px;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid;
+}
+
+table th{
+    background-color: whitesmoke;
+    color:black;
+}
+
+table td{
+    background-color: whitesmoke;
+    color:black;
+
+}
+.button-pdf, .button-course {
+    background-color: black;
+    color: white;
+    padding: 10px 22px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.button-pdf:hover {
+    background-color: white;
+    color: black;
+  }
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 50px;
+}

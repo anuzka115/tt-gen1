@@ -12,7 +12,7 @@ const Generated = () => {
   }, []);
 
   const generateTimetable = (instructors) => {
-    let newSlots = Array(13).fill().map(() => Array(22).fill(""));
+    let newSlots = Array(13).fill().map(() => Array(21).fill(""));
     let row = 0, col = 0;
 
     for (let inst of instructors) {
@@ -51,7 +51,7 @@ const Generated = () => {
 
   return (
     <div>
-      <h2>Generated Timetable</h2>
+      <h2 className="heading">Generated Timetable</h2>
       <table border="1">
         <thead>
           <tr>
@@ -70,7 +70,9 @@ const Generated = () => {
           ))}
         </tbody>
       </table>
-      <button onClick={saveTimetable}>Save Timetable</button>
+      <div className="button">
+      <button onClick={saveTimetable} className="button-pdf">Save Timetable</button>
+      </div>
     </div>
   );
 };
