@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-
-import { Link } from 'react-router-dom'
+import "./App.css"
+import { Link, useNavigate } from 'react-router-dom'
 import logo from "./assets/IISERB_logo.png"
 import ttLogo from "./assets/undraw_calendar_8r6s.svg"
 
 function App() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsAdmin(localStorage.getItem("isAdmin") === "true");
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAdmin");
+    setIsAdmin(false);
+    navigate("/");
+  };
+
   return (
     <>
      <div className='navbar'>
@@ -18,7 +31,13 @@ function App() {
         <div>
           <img src={logo} alt="logo" height="80" width="80"/>
         </div>
-        <Link to="login/signup">Login/SignUp</Link>
+         {isAdmin ? (
+          <button onClick={handleLogout}>
+            Logout
+          </button>
+        ) : (
+          <Link to="login/signup">Admin Login</Link>
+        )}
      </div>
      <div className='main'>
       <div>

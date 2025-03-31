@@ -8,6 +8,7 @@ import Edit from './Edit.jsx'
 import View from './ViewTT.jsx'
 import Student from './Student.jsx'
 import Login from './Login.jsx'
+import Generated from './Generated.jsx'
 
 const router=createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router=createBrowserRouter([
   {
     path:"/admin/view",
     element:<View/>,
+  },
+  {
+    path:"/admin/edit/generated",
+    element:<Generated/>,
   },
 ]);
 
