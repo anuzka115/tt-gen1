@@ -9,7 +9,7 @@ Deployment - Railway
  
 Description -
 
-Working demo -> working-demo-iiserb-tt-gen.mp4
-Codebase (Github) -> https://github.com/anuzka115/tt-gen1
+Working demo -> [working-demo-iiserb-tt-gen.mp4](https://drive.google.com/file/d/1GOam9oyZQgVpod6XzM8y7AtJRqdUSrsT/view)
+
 Deployment (Railway) -> https://tt-gen1-production.up.railway.app/  
 *deployment might not be fully functional due to deployment provider limitations.
